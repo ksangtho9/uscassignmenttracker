@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-label="Placeholder for Brightspace Subscribe screenshot">
+  <rect width="800" height="450" fill="#f4f4f5"/>
+  <rect x="40" y="40" width="720" height="370" rx="12" fill="#ffffff" stroke="#e4e4e7"/>
+  <text x="400" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#52525b">Replace with screenshot: Calendar ’ Subscribe</text>
+  <text x="400" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#71717a">Add your image at public/images/onboarding/</text>
+</svg>
