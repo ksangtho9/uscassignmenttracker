@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /c/Users/forfl/Documents/uscassignmenttracker/.env*)",
+      "Bash(npx tsc:*)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(npx eslint:*)"
+    ]
+  }
+}

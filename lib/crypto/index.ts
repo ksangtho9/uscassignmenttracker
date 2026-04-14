@@ -38,3 +38,20 @@ export function decryptSecret(payload: Buffer): string {
     "utf8",
   );
 }
+
+/**
+ * Encrypt a string and return a PostgreSQL bytea hex literal (e.g. `\xDEAD…`).
+ * Use when writing to a bytea column via PostgREST / Supabase JS.
+ */
+export function encryptToHex(plainText: string): string {
+  return "\\x" + encryptSecret(plainText).toString("hex");
+}
+
+/**
+ * Decrypt a value returned from a PostgreSQL bytea column via PostgREST.
+ * PostgREST v9+ returns bytea as `\x<hex>`; this strips the prefix and decrypts.
+ */
+export function decryptFromHex(hexValue: string): string {
+  const hex = hexValue.startsWith("\\x") ? hexValue.slice(2) : hexValue;
+  return decryptSecret(Buffer.from(hex, "hex"));
+}
