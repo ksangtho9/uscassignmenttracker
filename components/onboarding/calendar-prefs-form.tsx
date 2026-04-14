@@ -2,32 +2,12 @@
 
 import { useState } from "react";
 
-// Google Calendar event color IDs (colorId 1–11) with display names and hex values.
-const COLORS = [
-  { id: "1", name: "Lavender", hex: "#7986CB" },
-  { id: "2", name: "Sage", hex: "#33B679" },
-  { id: "3", name: "Grape", hex: "#8E24AA" },
-  { id: "4", name: "Flamingo", hex: "#E67C73" },
-  { id: "5", name: "Banana", hex: "#F6BF26" },
-  { id: "6", name: "Tangerine", hex: "#F4511E" },
-  { id: "7", name: "Peacock", hex: "#039BE5" },
-  { id: "8", name: "Graphite", hex: "#616161" },
-  { id: "9", name: "Blueberry", hex: "#3F51B5" },
-  { id: "10", name: "Basil", hex: "#0B8043" },
-  { id: "11", name: "Tomato", hex: "#D50000" },
-] as const;
-
 type Props = {
   useDedicatedCalendar: boolean;
-  calendarColorId: string | null;
 };
 
-export function CalendarPrefsForm({
-  useDedicatedCalendar: initialDedicated,
-  calendarColorId: initialColorId,
-}: Props) {
+export function CalendarPrefsForm({ useDedicatedCalendar: initialDedicated }: Props) {
   const [dedicated, setDedicated] = useState(initialDedicated);
-  const [colorId, setColorId] = useState<string | null>(initialColorId);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">(
     "idle",
   );
@@ -43,7 +23,7 @@ export function CalendarPrefsForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           use_dedicated_calendar: dedicated,
-          calendar_color_id: dedicated ? colorId : null,
+          calendar_color_id: null,
         }),
       });
 
@@ -77,7 +57,6 @@ export function CalendarPrefsForm({
         </p>
       </div>
 
-      {/* Dedicated calendar toggle */}
       <label className="flex cursor-pointer items-start gap-4">
         <span className="relative mt-0.5 inline-flex">
           <input
@@ -111,69 +90,6 @@ export function CalendarPrefsForm({
           </span>
         </span>
       </label>
-
-      {/* Color picker — only shown when dedicated calendar is on */}
-      {dedicated && (
-        <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
-            Calendar color{" "}
-            <span className="font-normal text-zinc-500 dark:text-zinc-400">
-              (optional)
-            </span>
-          </p>
-          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Calendar color">
-            {COLORS.map((c) => {
-              const selected = colorId === c.id;
-              return (
-                <button
-                  key={c.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={selected}
-                  aria-label={c.name}
-                  title={c.name}
-                  onClick={() => setColorId(selected ? null : c.id)}
-                  className={`relative flex h-8 w-8 items-center justify-center rounded-full transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                    selected
-                      ? "ring-2 ring-offset-2 ring-zinc-900 dark:ring-zinc-100"
-                      : "hover:scale-110"
-                  }`}
-                  style={{ backgroundColor: c.hex }}
-                >
-                  {selected && (
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      strokeWidth={3}
-                      stroke="white"
-                      className="h-4 w-4"
-                      aria-hidden
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          {colorId && (
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              {COLORS.find((c) => c.id === colorId)?.name} selected.{" "}
-              <button
-                type="button"
-                onClick={() => setColorId(null)}
-                className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300"
-              >
-                Clear
-              </button>
-            </p>
-          )}
-        </div>
-      )}
 
       <div className="flex items-center gap-4">
         <button

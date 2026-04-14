@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function SyncButton() {
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "syncing" | "done" | "error">(
     "idle",
   );
@@ -19,7 +21,13 @@ export function SyncButton() {
         "ok" in data &&
         (data as { ok: boolean }).ok === true;
 
-      setStatus(ok ? "done" : "error");
+      if (ok) {
+        setStatus("done");
+        // Re-render server component so the spreadsheet link appears once n8n sets it.
+        router.refresh();
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     } finally {

@@ -6,6 +6,7 @@ export type Profile = {
   brightspace_ical_url_ciphertext: string | null;
   google_refresh_token_ciphertext: string | null;
   google_calendar_id: string | null;
+  google_spreadsheet_id: string | null;
   use_dedicated_calendar: boolean | null;
   calendar_color_id: string | null;
   last_synced_at: string | null;

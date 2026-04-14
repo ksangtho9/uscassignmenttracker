@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import { ICalUrlForm } from "@/components/onboarding/ical-url-form";
-import { OnboardingGuide } from "@/components/onboarding/onboarding-guide";
 import { CalendarPrefsForm } from "@/components/onboarding/calendar-prefs-form";
 import { SyncButton } from "@/components/onboarding/sync-button";
 
@@ -12,13 +11,13 @@ export default async function OnboardingPage() {
 
   let isConnected = false;
   let useDedicatedCalendar = true;
-  let calendarColorId: string | null = null;
+  let spreadsheetId: string | null = null;
 
   if (user) {
     const { data } = await supabase
       .from("profiles")
       .select(
-        "brightspace_ical_url_ciphertext, use_dedicated_calendar, calendar_color_id",
+        "brightspace_ical_url_ciphertext, use_dedicated_calendar, google_spreadsheet_id",
       )
       .eq("id", user.id)
       .single();
@@ -26,7 +25,7 @@ export default async function OnboardingPage() {
     if (data) {
       isConnected = !!data.brightspace_ical_url_ciphertext;
       useDedicatedCalendar = data.use_dedicated_calendar ?? true;
-      calendarColorId = data.calendar_color_id ?? null;
+      spreadsheetId = data.google_spreadsheet_id ?? null;
     }
   }
 
@@ -39,20 +38,27 @@ export default async function OnboardingPage() {
         <p className="mt-2 text-zinc-600 dark:text-zinc-400">
           {isConnected
             ? "Your Brightspace calendar is connected. Paste a new URL below to update it."
-            : "Paste your Brightspace iCal URL once. After setup, assignments can sync to Google Calendar."}
+            : "Paste your Brightspace iCal URL once. After setup, assignments can sync to Google Calendar and a spreadsheet."}
         </p>
       </header>
-
-      <OnboardingGuide />
 
       <ICalUrlForm isConnected={isConnected} />
 
       {isConnected && (
         <>
-          <CalendarPrefsForm
-            useDedicatedCalendar={useDedicatedCalendar}
-            calendarColorId={calendarColorId}
-          />
+          <CalendarPrefsForm useDedicatedCalendar={useDedicatedCalendar} />
+
+          {spreadsheetId && (
+            <a
+              href={`https://docs.google.com/spreadsheets/d/${spreadsheetId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-800 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
+            >
+              View assignments spreadsheet →
+            </a>
+          )}
+
           <SyncButton />
         </>
       )}

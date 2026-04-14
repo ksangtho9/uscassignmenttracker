@@ -16,7 +16,7 @@ export function SignInForm({ nextPath }: SignInFormProps) {
       options: {
         redirectTo,
         scopes:
-          "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar",
+          "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/spreadsheets",
         queryParams: {
           access_type: "offline",
           prompt: "consent",
