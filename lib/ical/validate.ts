@@ -49,6 +49,8 @@ export async function validateICalFeed(
       return { ok: false, error: "Empty response from feed URL." };
     }
 
+    console.log("[validate-ical] first 300 chars:", text.slice(0, 300));
+
     if (!text.trimStart().startsWith("BEGIN:VCALENDAR")) {
       return {
         ok: false,
