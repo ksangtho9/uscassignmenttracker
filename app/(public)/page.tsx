@@ -27,20 +27,12 @@ export default async function HomePage() {
             Go to dashboard
           </Link>
         ) : (
-          <>
-            <Link
-              href="/sign-in"
-              className="rounded bg-cardinal px-6 py-3 text-sm font-medium text-white transition hover:bg-red-800"
-            >
-              Sign in with Google
-            </Link>
-            <Link
-              href="/dashboard"
-              className="rounded border border-zinc-400 bg-white px-6 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50"
-            >
-              Set up
-            </Link>
-          </>
+          <Link
+            href="/sign-in"
+            className="rounded bg-cardinal px-6 py-3 text-sm font-medium text-white transition hover:bg-red-800"
+          >
+            Sign in with Google
+          </Link>
         )}
       </div>
     </div>
