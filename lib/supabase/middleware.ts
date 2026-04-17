@@ -37,9 +37,11 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  if (isProtectedPath(request.nextUrl.pathname)) {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  }
 
   if (isProtectedPath(request.nextUrl.pathname) && !user) {
     const url = request.nextUrl.clone();
