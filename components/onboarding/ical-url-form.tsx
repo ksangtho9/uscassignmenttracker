@@ -171,6 +171,7 @@ export function ICalUrlForm({ isConnected }: Props) {
               onPaste={(e) => {
                 const pasted = e.clipboardData.getData("text").trim();
                 if (pasted.startsWith("https://")) {
+                  e.preventDefault();
                   setUrl(pasted);
                   setValidationState("none");
                   void validate(pasted);
