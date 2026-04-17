@@ -28,17 +28,15 @@ export function SignInForm({ nextPath }: SignInFormProps) {
   return (
     <div className="mx-auto flex max-w-md flex-col gap-6 px-6 py-16">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-          Sign in
-        </h1>
-        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-          Calendar access is used only to create or update assignment events.
+        <h1 className="text-2xl font-semibold text-zinc-900">Sign in</h1>
+        <p className="mt-2 text-sm text-zinc-600">
+          Google Calendar and Sheets access is used to create assignment events and a personal tracking spreadsheet.
         </p>
       </div>
       <button
         type="button"
         onClick={() => void signInWithGoogle()}
-        className="rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+        className="rounded bg-cardinal px-5 py-3 text-sm font-medium text-white transition hover:bg-red-800"
       >
         Sign in with Google
       </button>

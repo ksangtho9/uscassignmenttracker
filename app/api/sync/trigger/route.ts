@@ -57,8 +57,6 @@ export async function POST() {
   try {
     const icalRaw = profile.brightspace_ical_url_ciphertext as string;
     const tokenRaw = profile.google_refresh_token_ciphertext as string;
-    console.log("[sync/trigger] ical_raw prefix:", icalRaw?.slice(0, 10));
-    console.log("[sync/trigger] token_raw prefix:", tokenRaw?.slice(0, 10));
     icalUrl = decryptFromHex(icalRaw);
     refreshToken = decryptFromHex(tokenRaw);
   } catch (e) {

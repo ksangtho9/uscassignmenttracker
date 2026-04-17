@@ -6,7 +6,7 @@ export default async function SignInPage({
   searchParams: Promise<{ next?: string }>;
 }) {
   const { next } = await searchParams;
-  const nextPath = next?.startsWith("/") && !next.startsWith("//") ? next : "/onboarding";
+  const nextPath = next?.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
 
   return <SignInForm nextPath={nextPath} />;
 }

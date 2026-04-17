@@ -4,7 +4,11 @@
       "Bash(ls /c/Users/forfl/Documents/uscassignmenttracker/.env*)",
       "Bash(npx tsc:*)",
       "Bash(echo \"exit: $?\")",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "Bash(npm run *)",
+      "Read(//c/Users/forfl/AppData/Local/Microsoft/WinGet/Packages/Schniz.fnm_Microsoft.Winget.Source_8wekyb3d8bbwe//**)",
+      "Read(//c/Users/forfl/AppData/Roaming/fnm//**)",
+      "Read(//c/Users/forfl/AppData/Local/**)"
     ]
   }
 }

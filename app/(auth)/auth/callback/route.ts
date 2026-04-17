@@ -5,7 +5,7 @@ import { encryptToHex } from "@/lib/crypto";
 
 function safeNextPath(next: string | null): string {
   if (!next || !next.startsWith("/") || next.startsWith("//")) {
-    return "/onboarding";
+    return "/dashboard";
   }
   return next;
 }
