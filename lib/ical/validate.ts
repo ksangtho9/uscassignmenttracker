@@ -32,6 +32,7 @@ export async function validateICalFeed(
       signal: controller.signal,
       headers: {
         Accept: "text/calendar, text/plain, */*",
+        "User-Agent": "CalendarFetch/1.0 (calendar client)",
       },
       cache: "no-store",
     });
@@ -46,6 +47,14 @@ export async function validateICalFeed(
     const text = await response.text();
     if (!text.trim()) {
       return { ok: false, error: "Empty response from feed URL." };
+    }
+
+    if (!text.trimStart().startsWith("BEGIN:VCALENDAR")) {
+      return {
+        ok: false,
+        error:
+          "Feed did not return calendar data. Make sure the URL is the iCal subscription link (not a browser link), and that it does not require login.",
+      };
     }
 
     let root: InstanceType<typeof ICAL.Component>;
